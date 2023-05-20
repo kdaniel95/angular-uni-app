@@ -7,4 +7,5 @@ export class TeacherModel implements Teacher
   name: string;
   email: string;
   position: Position;
+  [key: string]: any;
 }
