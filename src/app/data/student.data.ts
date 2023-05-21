@@ -17,7 +17,6 @@ export interface Student {
   name: string;
   email: string;
   major: Major;
-  courseIds: number[];
 }
 
 export class StudentTable{
@@ -28,7 +27,6 @@ export class StudentTable{
       name: "John Doe",
       email: "john.doe@example.com",
       major: Major.CeMSc,
-      courseIds: [1,3],
     },
     {
       id: 2,
@@ -36,7 +34,6 @@ export class StudentTable{
       name: "Jane Smith",
       email: "jane.smith@example.com",
       major: Major.SeMSc,
-      courseIds: [1,3,4],
     },
     {
       id: 3,
@@ -44,7 +41,6 @@ export class StudentTable{
       name: "Alice Johnson",
       email: "alice.johnson@example.com",
       major: Major.BiBSc,
-      courseIds: [2,3,4],
     },
     {
       id: 4,
@@ -52,7 +48,6 @@ export class StudentTable{
       name: "Bob Anderson",
       email: "bob.anderson@example.com",
       major: Major.CeBSc,
-      courseIds: [1,4],
     },
   ];
 }

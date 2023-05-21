@@ -17,6 +17,7 @@ import { StudentsComponent } from './student/student.component';
 import { StudentsListComponent } from './student-list/students-list.component';
 import { StudentsService } from './students.service';
 import { StudentsRoutingModule } from './students-routing.module';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -26,10 +27,9 @@ import { StudentsRoutingModule } from './students-routing.module';
     EffectsModule.forFeature([StudentsEffects]),
     MatButtonModule,
     MatCardModule,
-    MatIconModule,
     MatInputModule,
-    MatProgressSpinnerModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule
   ],
   declarations: [
     StudentsComponent,

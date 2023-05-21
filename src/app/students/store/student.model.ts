@@ -7,5 +7,5 @@ export class StudentModel implements Student
   name: string;
   email: string;
   major: Major;
-  courseIds: number[];
+  [key: string]: any;
 }

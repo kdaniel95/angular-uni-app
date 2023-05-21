@@ -21,6 +21,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { environment } from '../environments/environment';
 import { httpInterceptorProviders } from './http-interceptors';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   imports: [ BrowserModule, FormsModule, ReactiveFormsModule, BrowserAnimationsModule, HttpClientModule,
@@ -38,7 +39,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     MatCardModule,
     MatIconModule,
     MatInputModule,
-    MatProgressSpinnerModule ],
+    MatProgressSpinnerModule,
+    MatSortModule ],
   declarations: [ AppComponent, HelloComponent],
   bootstrap:    [ AppComponent ],
   providers: [InMemoryDatabaseService, RequestService, httpInterceptorProviders, AuthService]

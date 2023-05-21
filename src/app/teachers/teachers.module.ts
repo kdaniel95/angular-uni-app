@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { StoreModule } from '@ngrx/store';
 import { TeachersRoutingModule } from './teachers-routing.module';
 import { RouterModule } from '@angular/router';
@@ -17,6 +15,7 @@ import { TeacherEffects } from './store/teachers.effects';
 import { TeachersListComponent } from './teachers-list/teachers-list.component';
 import { TeachersService } from './teachers.service';
 import { TeachersComponent } from './teachers/teachers.component';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -24,12 +23,11 @@ import { TeachersComponent } from './teachers/teachers.component';
     CommonModule, TeachersRoutingModule, FormsModule, ReactiveFormsModule, RouterModule,
     StoreModule.forFeature(fromTeachers.teachersFeatureKey, fromTeachers.teachersReducer),
     EffectsModule.forFeature([TeacherEffects]),
-    MatButtonModule,
     MatCardModule,
     MatIconModule,
     MatInputModule,
-    MatProgressSpinnerModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule,
   ],
   declarations: [
     TeachersComponent,

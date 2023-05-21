@@ -1,4 +1,3 @@
-import { Course } from "src/app/data/course.data";
 import { Semester } from "src/app/data/semester.data";
 
 export class SemesterModel implements Semester
@@ -7,6 +6,5 @@ export class SemesterModel implements Semester
   name: string;
   startDate: Date;
   endDate: Date;
-  courseIds: number[];
-  courses?: Course[] | undefined;
+  [key: string]: any;
 }

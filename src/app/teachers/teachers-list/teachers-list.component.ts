@@ -1,25 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Filterable } from './../../util/filterable';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { selectTeachers } from '../store/teachers.selectors';
 import { Store, select } from '@ngrx/store';
 import {
   Observable,
-  Subject,
-  debounceTime,
-  distinctUntilChanged,
-  takeUntil,
 } from 'rxjs';
 import { TeacherModel } from '../store/teachers.model';
 import { teachersRequestedAction } from '../store/teachers.actions';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-teachers-list',
   templateUrl: './teachers-list.component.html',
   styleUrls: ['./teachers-list.component.css'],
 })
-export class TeachersListComponent implements OnInit {
+export class TeachersListComponent extends Filterable<TeacherModel> implements OnInit {
+
+  @ViewChild(MatSort) sort: MatSort
+
   displayedColumns: string[] = [
-    'id',
     'neptunCode',
     'name',
     'email',
@@ -30,52 +29,16 @@ export class TeachersListComponent implements OnInit {
     select(selectTeachers)
   );
 
-  dataSource: MatTableDataSource<TeacherModel>;
-
-  private destroy$ = new Subject<void>();
-
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+    super();
+  }
 
   ngOnInit() {
-    this.loadData();
+    this.loadData(this.teachers$);
     this.store.dispatch(teachersRequestedAction());
   }
 
-  loadData(){
-    this.teachers$.pipe(takeUntil(this.destroy$)).subscribe((teachers) => {
-      this.dataSource = new MatTableDataSource<TeacherModel>(teachers);
-    });
-  }
-
-  ngonDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  applyFilter(event: Event, column: string) {
-    const filterValue = (event.target as HTMLInputElement).value
-      .trim()
-      .toLowerCase();
-
-    this.dataSource.filterPredicate = (data: TeacherModel, filter: string) => {
-      const col = data[column];
-
-      if(col === undefined){
-        return;
-      }
-
-      return data[column].toString().toLowerCase().includes(filter);
-    };
-
-    this.dataSource.filter = filterValue;
-
-    const filterSubject = new Subject<string>();
-    filterSubject.next(filterValue);
-
-    filterSubject
-      .pipe(debounceTime(300), distinctUntilChanged(), takeUntil(this.destroy$))
-      .subscribe((value) => {
-        this.dataSource.filter = value;
-      });
+  onMatSortChange(){
+    this.dataSource.sort = this.sort;
   }
 }
