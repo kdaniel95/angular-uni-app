@@ -1,6 +1,6 @@
-import { TeacherSemesterCourse } from "src/app/data/teacher_semester_course";
+import { TeacherSemesterCourse } from 'src/app/data/teacher_semester_course';
 
-export class TeacherSemesterCourseModel implements TeacherSemesterCourse{
+export class TeacherSemesterCourseModel implements TeacherSemesterCourse {
   id: number;
   teacherId: number;
   teacherName?: string | undefined;

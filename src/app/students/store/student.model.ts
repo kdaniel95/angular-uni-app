@@ -1,7 +1,6 @@
-import { Major, Student } from "src/app/data/student.data";
+import { Major, Student } from 'src/app/data/student.data';
 
-export class StudentModel implements Student
-{
+export class StudentModel implements Student {
   id: number;
   neptunCode: string;
   name: string;

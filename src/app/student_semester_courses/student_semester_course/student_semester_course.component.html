@@ -1,0 +1,21 @@
+<ng-container>
+  <mat-form-field>
+    <mat-label>Student</mat-label>
+    <mat-select [(ngModel)]="selectedStudent">
+        <mat-option *ngFor="let student of students$ | async" [value]="student.id">
+          {{ student.name}}
+        </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Semester</mat-label>
+    <mat-select [(ngModel)]="selectedSemester">
+        <mat-option *ngFor="let semester of semesters$ | async" [value]="semester.id">
+          {{ semester.name}}
+        </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-button (click)="onSubmit()">Query</button>
+</ng-container>

@@ -31,6 +31,11 @@ import { Component, Input } from '@angular/core';
             <b>Teacher courses by semester</b>
           </a>
         </li>
+        <li>
+          <a mat-button routerLink="/student_semester_course">
+            <b>Student courses by semester</b>
+          </a>
+        </li>
       </ul>
 
     </nav>

@@ -1,7 +1,6 @@
-import { Semester } from "src/app/data/semester.data";
+import { Semester } from 'src/app/data/semester.data';
 
-export class SemesterModel implements Semester
-{
+export class SemesterModel implements Semester {
   id: number;
   name: string;
   startDate: Date;

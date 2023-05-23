@@ -1,8 +1,5 @@
 // A tantárgyaknak van neve, kódja, kreditértéke (egész szám), felelős tanszéke (pl: VIRT, RSZT, Matematika, stb.).
 
-import { Student, StudentTable } from './student.data';
-import { Teacher, TeacherTable } from './teachers.data';
-
 export interface Course {
   id: number;
   name: string;

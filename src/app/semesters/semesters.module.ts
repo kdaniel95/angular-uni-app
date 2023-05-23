@@ -16,23 +16,24 @@ import { SemestersService } from './semesters.service';
 import { SemesterEffects } from './store/semester.effects';
 import * as fromSemesters from './store/semester.reducer';
 
-
 @NgModule({
   imports: [
-    CommonModule, SemestersRoutingModule, FormsModule, ReactiveFormsModule, RouterModule,
-    StoreModule.forFeature(fromSemesters.semestersFeatureKey, fromSemesters.semesterReducer),
+    CommonModule,
+    SemestersRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    StoreModule.forFeature(
+      fromSemesters.semestersFeatureKey,
+      fromSemesters.semesterReducer
+    ),
     EffectsModule.forFeature([SemesterEffects]),
     MatCardModule,
     MatInputModule,
     MatTableModule,
     MatSortModule,
   ],
-  declarations: [
-    SemestersComponent,
-    SemestersListComponent,
-  ],
-  providers: [
-    SemestersService
-  ]
+  declarations: [SemestersComponent, SemestersListComponent],
+  providers: [SemestersService],
 })
-export class SemestersModule { }
+export class SemestersModule {}

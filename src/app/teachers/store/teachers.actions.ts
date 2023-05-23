@@ -12,5 +12,5 @@ export const teachersRequestedAction = createAction(
 
 export const teachersLoadedAction = createAction(
   TeacherActionTypes.teachersLoaded,
-  props<{teachers: TeacherModel[]}>()
+  props<{ teachers: TeacherModel[] }>()
 );

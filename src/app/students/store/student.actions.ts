@@ -12,5 +12,5 @@ export const studentsRequestedAction = createAction(
 
 export const studentsLoadedAction = createAction(
   StudentActionTypes.coursesLoaded,
-  props<{students: Student[]}>()
+  props<{ students: Student[] }>()
 );

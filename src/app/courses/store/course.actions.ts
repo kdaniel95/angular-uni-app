@@ -12,5 +12,5 @@ export const coursesRequestedAction = createAction(
 
 export const coursesLoadedAction = createAction(
   CourseActionTypes.coursesLoaded,
-  props<{courses: Course[]}>()
+  props<{ courses: Course[] }>()
 );

@@ -28,6 +28,11 @@ const routes: Routes = [
     loadChildren: () => import('./teacher_semester_courses/teacher_semester_course.module').then(tsc => tsc.TeacherSemesterCourseModule),
     canLoad: [AuthGuard]
   },
+  {
+    path: 'student_semester_course',
+    loadChildren: () => import('./student_semester_courses/student_semester_course.module').then(scc => scc.StudentSemesterCourseModule),
+    canLoad: [AuthGuard]
+  },
 ];
 
 @NgModule({

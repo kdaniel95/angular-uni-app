@@ -1,42 +1,41 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { StoreModule } from '@ngrx/store';
 import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
 
-import * as fromStudents from './store/student.reducer';
+import { MatSortModule } from '@angular/material/sort';
 import { EffectsModule } from '@ngrx/effects';
 import { StudentsEffects } from './store/student.effects';
-import { StudentsComponent } from './student/student.component';
+import * as fromStudents from './store/student.reducer';
 import { StudentsListComponent } from './student-list/students-list.component';
-import { StudentsService } from './students.service';
+import { StudentsComponent } from './student/student.component';
 import { StudentsRoutingModule } from './students-routing.module';
-import { MatSortModule } from '@angular/material/sort';
-
+import { StudentsService } from './students.service';
 
 @NgModule({
   imports: [
-    CommonModule, StudentsRoutingModule, FormsModule, ReactiveFormsModule, RouterModule,
-    StoreModule.forFeature(fromStudents.studentsFeatureKey, fromStudents.studentsReducer),
+    CommonModule,
+    StudentsRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    StoreModule.forFeature(
+      fromStudents.studentsFeatureKey,
+      fromStudents.studentsReducer
+    ),
     EffectsModule.forFeature([StudentsEffects]),
     MatButtonModule,
     MatCardModule,
     MatInputModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
   ],
-  declarations: [
-    StudentsComponent,
-    StudentsListComponent,
-  ],
-  providers: [
-    StudentsService
-  ]
+  declarations: [StudentsComponent, StudentsListComponent],
+  providers: [StudentsService],
 })
-export class StudentsModule { }
+export class StudentsModule {}

@@ -1,29 +1,24 @@
-import { Filterable } from './../../util/filterable';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { selectTeachers } from '../store/teachers.selectors';
-import { Store, select } from '@ngrx/store';
-import {
-  Observable,
-} from 'rxjs';
-import { TeacherModel } from '../store/teachers.model';
-import { teachersRequestedAction } from '../store/teachers.actions';
 import { MatSort } from '@angular/material/sort';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { teachersRequestedAction } from '../store/teachers.actions';
+import { TeacherModel } from '../store/teachers.model';
+import { selectTeachers } from '../store/teachers.selectors';
+import { Filterable } from './../../util/filterable';
 
 @Component({
   selector: 'app-teachers-list',
   templateUrl: './teachers-list.component.html',
   styleUrls: ['./teachers-list.component.css'],
 })
-export class TeachersListComponent extends Filterable<TeacherModel> implements OnInit {
+export class TeachersListComponent
+  extends Filterable<TeacherModel>
+  implements OnInit
+{
+  @ViewChild(MatSort) sort: MatSort;
 
-  @ViewChild(MatSort) sort: MatSort
-
-  displayedColumns: string[] = [
-    'neptunCode',
-    'name',
-    'email',
-    'position',
-  ];
+  displayedColumns: string[] = ['neptunCode', 'name', 'email', 'position'];
 
   teachers$: Observable<TeacherModel[]> = this.store.pipe(
     select(selectTeachers)
@@ -38,7 +33,7 @@ export class TeachersListComponent extends Filterable<TeacherModel> implements O
     this.store.dispatch(teachersRequestedAction());
   }
 
-  onMatSortChange(){
+  onMatSortChange() {
     this.dataSource.sort = this.sort;
   }
 }

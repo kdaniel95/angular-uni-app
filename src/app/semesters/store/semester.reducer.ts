@@ -14,5 +14,5 @@ export const initialState: SemestersFeatureState = {
 
 export const semesterReducer = createReducer(
   initialState,
-  on(semestersLoadedAction, (state, {semesters}) => ({...state, semesters})),
-)
+  on(semestersLoadedAction, (state, { semesters }) => ({ ...state, semesters }))
+);

@@ -1,29 +1,37 @@
-import { TeacherSemesterCourse } from 'src/app/data/teacher_semester_course';
 import { Injectable } from '@angular/core';
-import { InMemoryDbService, RequestInfo, STATUS } from 'angular-in-memory-web-api';
-import { StudentTable } from './data/student.data';
-import { TeacherTable } from './data/teachers.data';
+import {
+  InMemoryDbService,
+  RequestInfo,
+  STATUS,
+} from 'angular-in-memory-web-api';
+import { TeacherSemesterCourse } from 'src/app/data/teacher_semester_course';
 import { CourseTable } from './data/course.data';
 import { SemesterTable } from './data/semester.data';
+import { StudentTable } from './data/student.data';
+import {
+  StudentSemesterCourse,
+  StudentSemesterCourseTable,
+} from './data/student_semester_course';
 import { TeacherSemesterCourseTable } from './data/teacher_semester_course';
-import { of } from 'rxjs';
+import { TeacherTable } from './data/teachers.data';
 
 @Injectable()
 export class InMemoryDatabaseService implements InMemoryDbService {
-
-  constructor() { }
+  constructor() {}
 
   get(reqInfo: RequestInfo) {
     const urlWithParams = reqInfo.req.urlWithParams;
 
-    if(urlWithParams != null){
-    const ids: Array<number>| undefined = urlWithParams.match(/[0-9]+/g)?.map(n => +(n));
+    if (urlWithParams != null) {
+      const ids: Array<number> | undefined = urlWithParams
+        .match(/[0-9]+/g)
+        ?.map((n) => +n);
 
-    if(ids != null && ids.length > 1){
+      if (ids != null && ids.length > 1) {
         return this.getRelationshipDetails(reqInfo, ids);
+      }
     }
-  }
-  return undefined;
+    return undefined;
   }
 
   private getRelationshipDetails(reqInfo: RequestInfo, ids: Array<number>) {
@@ -31,32 +39,38 @@ export class InMemoryDatabaseService implements InMemoryDbService {
 
     let data = undefined;
 
-    switch(reqInfo.collectionName){
+    switch (reqInfo.collectionName) {
       case 'teacher_semester_courses':
-        data = entities.filter((entity: TeacherSemesterCourse) => entity.teacherId === ids[0] && entity.semesterId === ids[1]);
+        data = entities.filter(
+          (entity: TeacherSemesterCourse) =>
+            entity.teacherId === ids[0] && entity.semesterId === ids[1]
+        );
         break;
       case 'student_semester_courses':
-        // TODO: Implement this, too...
+        data = entities.filter(
+          (entity: StudentSemesterCourse) =>
+            entity.studentId === ids[0] && entity.semesterId === ids[1]
+        );
         break;
-      }
+    }
 
-      const options: any = data ?
-      {
-        body: data,
-        status: STATUS.OK,
-        statusText: 'OK!',
-        headers: reqInfo.headers,
-        url: reqInfo.url
-      } :
-      {
-        body: { error: `TeacherSemesterCourse with ids='${ids}' not found` },
-        status: STATUS.NOT_FOUND,
-        statusText: 'ERROR!',
-        headers: reqInfo.headers,
-        url: reqInfo.url
-      };
+    const options: any = data
+      ? {
+          body: data,
+          status: STATUS.OK,
+          statusText: 'OK!',
+          headers: reqInfo.headers,
+          url: reqInfo.url,
+        }
+      : {
+          body: { error: `TeacherSemesterCourse with ids='${ids}' not found` },
+          status: STATUS.NOT_FOUND,
+          statusText: 'ERROR!',
+          headers: reqInfo.headers,
+          url: reqInfo.url,
+        };
 
-      return reqInfo.utils.createResponse$(() => options);
+    return reqInfo.utils.createResponse$(() => options);
   }
 
   createDb() {
@@ -65,9 +79,11 @@ export class InMemoryDatabaseService implements InMemoryDbService {
       students: StudentTable.students,
       courses: CourseTable.courses,
       semesters: SemesterTable.semesters,
-      teacher_semester_courses: TeacherSemesterCourseTable.teacherSemesterCourses
-    }
+      teacher_semester_courses:
+        TeacherSemesterCourseTable.teacherSemesterCourses,
+      student_semester_courses:
+        StudentSemesterCourseTable.studentSemesterCourses,
+    };
     return db;
   }
-
 }

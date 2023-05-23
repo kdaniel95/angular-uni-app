@@ -1,14 +1,19 @@
-import { Observable, Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
-import { Injectable, OnDestroy } from "@angular/core";
-import { MatTableDataSource } from "@angular/material/table";
+import { Injectable, OnDestroy } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import {
+  Observable,
+  Subject,
+  debounceTime,
+  distinctUntilChanged,
+  takeUntil,
+} from 'rxjs';
 
 @Injectable()
-export class Filterable<T> implements OnDestroy
-{
+export class Filterable<T> implements OnDestroy {
   protected dataSource: MatTableDataSource<T>;
   private destroy$ = new Subject<void>();
 
-  loadData(data: Observable<T[]>){
+  loadData(data: Observable<T[]>) {
     data.pipe(takeUntil(this.destroy$)).subscribe((entries) => {
       this.dataSource = new MatTableDataSource<T>(entries);
     });
@@ -25,9 +30,9 @@ export class Filterable<T> implements OnDestroy
       .toLowerCase();
 
     this.dataSource.filterPredicate = (data: T, filter: string) => {
-      const col = (data[column] as string);
+      const col = data[column] as string;
 
-      if(col === undefined){
+      if (col === undefined) {
         return false;
       }
 

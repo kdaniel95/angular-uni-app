@@ -1,28 +1,30 @@
-import { studentsRequestedAction } from './../store/student.actions';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { selectStudents } from '../store/student.selectors';
+import { MatSort } from '@angular/material/sort';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { StudentModel } from '../store/student.model';
 import { Filterable } from 'src/app/util/filterable';
-import { MatSort } from '@angular/material/sort';
+import { StudentModel } from '../store/student.model';
+import { selectStudents } from '../store/student.selectors';
+import { studentsRequestedAction } from './../store/student.actions';
 
 @Component({
   selector: 'app-students-list',
   templateUrl: './students-list.component.html',
-  styleUrls: ['./students-list.component.css']
+  styleUrls: ['./students-list.component.css'],
 })
-export class StudentsListComponent extends Filterable<StudentModel> implements OnInit {
-
-  @ViewChild(MatSort) sort: MatSort
+export class StudentsListComponent
+  extends Filterable<StudentModel>
+  implements OnInit
+{
+  @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns: string[] = ['neptunCode', 'name', 'email', 'major'];
 
-  students$: Observable<StudentModel[]> = this.store.pipe(select(selectStudents))
+  students$: Observable<StudentModel[]> = this.store.pipe(
+    select(selectStudents)
+  );
 
-  constructor(
-  private store: Store
-  ) {
+  constructor(private store: Store) {
     super();
   }
 
@@ -31,7 +33,7 @@ export class StudentsListComponent extends Filterable<StudentModel> implements O
     this.store.dispatch(studentsRequestedAction());
   }
 
-  onMatSortChange(){
+  onMatSortChange() {
     this.dataSource.sort = this.sort;
   }
 }

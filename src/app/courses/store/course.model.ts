@@ -1,7 +1,6 @@
-import { Course } from "src/app/data/course.data";
+import { Course } from 'src/app/data/course.data';
 
-export class CourseModel implements Course
-{
+export class CourseModel implements Course {
   id: number;
   name: string;
   code: string;

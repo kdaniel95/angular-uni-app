@@ -12,5 +12,5 @@ export const semestersRequestedAction = createAction(
 
 export const semestersLoadedAction = createAction(
   SemesterActionTypes.coursesLoaded,
-  props<{semesters: Semester[]}>()
+  props<{ semesters: Semester[] }>()
 );
