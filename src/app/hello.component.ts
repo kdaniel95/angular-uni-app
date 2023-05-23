@@ -26,7 +26,13 @@ import { Component, Input } from '@angular/core';
             <b>Semesters</b>
           </a>
         </li>
+        <li>
+          <a mat-button routerLink="/teacher_semester_course">
+            <b>Teacher courses by semester</b>
+          </a>
+        </li>
       </ul>
+
     </nav>
   </mat-card>`,
   styles: [`h1 { font-family: Lato; }`]
