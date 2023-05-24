@@ -4,6 +4,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { StudentsListComponent } from './student-list/students-list.component';
 import { StudentsComponent } from './student/student.component';
 import { StudentsCreateComponent } from './students-create/students-create.component';
+import { StudentsUpdateComponent } from './students-update/students-update.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,16 @@ const routes: Routes = [
           {
             path: '',
             component: StudentsCreateComponent,
+          },
+        ],
+      },
+      {
+        path: 'edit/:studentId',
+        canActivateChild: [AuthGuard],
+        children: [
+          {
+            path: '',
+            component: StudentsUpdateComponent,
           },
         ],
       },

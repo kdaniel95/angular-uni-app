@@ -11,16 +11,20 @@ const STUDENTS_URL = 'api/students';
 export class StudentsService {
   constructor(private requestService: RequestService) {}
 
+  getStudent(id: number): Observable<any>
+  {
+    return this.requestService.get<Student>(`${STUDENTS_URL}/${id}`);
+  }
+
   getStudents(): Observable<Student[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-    return this.requestService.get<Student[]>(STUDENTS_URL, httpOptions);
+    return this.requestService.get<Student[]>(STUDENTS_URL);
   }
 
   createStudent(student: StudentModel): Observable<any> {
     return this.requestService.post(`${STUDENTS_URL}/`, student);
+  }
+
+  updateStudent(student: StudentModel): Observable<any> {
+    return this.requestService.put(`${STUDENTS_URL}/`, student);
   }
 }

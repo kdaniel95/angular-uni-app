@@ -5,6 +5,13 @@ import { StudentModel } from './student.model';
 export const selectFeature =
   createFeatureSelector<StudentsFeatureState>(studentsFeatureKey);
 
+export const selectLoadedStudent = createSelector(
+  selectFeature,
+  (state: StudentsFeatureState) => {
+    return state.loadedStudent;
+  }
+);
+
 export const selectStudents = createSelector(
   selectFeature,
   (state: StudentsFeatureState) => {

@@ -19,6 +19,7 @@ import { StudentsService } from './students.service';
 import { StudentsCreateComponent } from './students-create/students-create.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { StudentsUpdateComponent } from './students-update/students-update.component';
 
 @NgModule({
   imports: [
@@ -40,7 +41,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatSortModule,
     MatSelectModule,
   ],
-  declarations: [StudentsComponent, StudentsListComponent, StudentsCreateComponent],
+  declarations: [StudentsComponent, StudentsListComponent, StudentsCreateComponent, StudentsUpdateComponent],
   providers: [StudentsService],
 })
 export class StudentsModule {}

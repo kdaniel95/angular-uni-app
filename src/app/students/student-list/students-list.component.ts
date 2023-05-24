@@ -18,7 +18,7 @@ export class StudentsListComponent
 {
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['neptunCode', 'name', 'email', 'major'];
+  displayedColumns: string[] = ['neptunCode', 'name', 'email', 'major', 'actions'];
 
   students$: Observable<StudentModel[]> = this.store.pipe(
     select(selectStudents)
