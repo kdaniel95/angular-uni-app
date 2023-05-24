@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Teacher } from '../data/teachers.data';
 import { RequestService } from '../request.service';
+import { TeacherModel } from './store/teachers.model';
 
 const TEACHERS_URL = 'api/teachers';
 
@@ -17,5 +18,9 @@ export class TeachersService {
       }),
     };
     return this.requestService.get<Teacher[]>(TEACHERS_URL, httpOptions);
+  }
+
+  createTeacher(teacher: TeacherModel): Observable<any> {
+    return this.requestService.post(`${TEACHERS_URL}/`, teacher);
   }
 }

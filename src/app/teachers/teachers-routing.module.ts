@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
+import { TeachersCreateComponent } from './teachers-create/teachers-create.component';
 import { TeachersListComponent } from './teachers-list/teachers-list.component';
 import { TeachersComponent } from './teachers/teachers.component';
 
@@ -17,6 +18,10 @@ const routes: Routes = [
           {
             path: '',
             component: TeachersListComponent,
+          },
+          {
+            path: 'create',
+            component: TeachersCreateComponent,
           },
         ],
       },

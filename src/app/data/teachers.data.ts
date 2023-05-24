@@ -8,6 +8,15 @@ export enum Position {
   Other = 'other',
 }
 
+export const Position2LabelMapping: Record<Position, string> = {
+  [Position.AssociateProf]: 'Associate Professor',
+  [Position.AssistantProf]: 'Assistant Professor',
+  [Position.MasterInstructor]: 'Master Instructor',
+  [Position.AdminExpert]: 'Admin Expert',
+  [Position.TeachingAssistant]: 'Teaching Assistant',
+  [Position.Other]: 'Other',
+};
+
 // Az oktatóknak van Neptun kódja, neve, email címe, beosztása.
 export interface Teacher {
   id: number;

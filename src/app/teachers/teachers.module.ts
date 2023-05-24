@@ -16,6 +16,9 @@ import * as fromTeachers from './store/teachers.reducer';
 import { TeachersListComponent } from './teachers-list/teachers-list.component';
 import { TeachersService } from './teachers.service';
 import { TeachersComponent } from './teachers/teachers.component';
+import { TeachersCreateComponent } from './teachers-create/teachers-create.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -30,12 +33,16 @@ import { TeachersComponent } from './teachers/teachers.component';
     ),
     EffectsModule.forFeature([TeacherEffects]),
     MatCardModule,
+    MatButtonModule,
+    MatIconModule,
     MatIconModule,
     MatInputModule,
     MatTableModule,
     MatSortModule,
+    MatSelectModule,
+    MatIconModule,
   ],
-  declarations: [TeachersComponent, TeachersListComponent],
+  declarations: [TeachersComponent, TeachersListComponent, TeachersCreateComponent],
   providers: [TeachersService],
 })
 export class TeachersModule {}

@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { EMPTY } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import { TeachersService } from '../teachers.service';
-import { TeacherActionTypes, teachersLoadedAction } from './teachers.actions';
+import { TeacherActionTypes, teacherCreatedAction, teachersLoadedAction } from './teachers.actions';
+import { selectNextTeacherId } from './teachers.selectors';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class TeacherEffects {
@@ -19,8 +21,28 @@ export class TeacherEffects {
     )
   );
 
+  createTeacher$ =  createEffect(() => this.actions$.pipe(
+    ofType(TeacherActionTypes.teacherCreate),
+    concatLatestFrom(() => this.store.select(selectNextTeacherId)),
+    switchMap(([action, id]) => {
+      return this.teachersService.createTeacher(action).pipe(
+        map(() => {
+            return teacherCreatedAction({teacher: {
+              id,
+              neptunCode: action['neptunCode'],
+              name: action['name'],
+              email: action['email'],
+              position: action['position']
+            }});
+        }),
+        catchError(() => EMPTY)
+      )
+    })
+  ))
+
   constructor(
     private actions$: Actions,
-    private teachersService: TeachersService
+    private teachersService: TeachersService,
+    private store: Store,
   ) {}
 }

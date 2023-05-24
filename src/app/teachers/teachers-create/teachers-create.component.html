@@ -1,0 +1,49 @@
+<h3>Create new teacher</h3>
+<p>
+  <a mat-button routerLink="/teachers">
+    <b>Back to teachers</b>
+  </a>
+</p>
+<form [formGroup]="teachersForm" (ngSubmit)="onSubmit(teachersForm.value)">
+
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Neptun code</mat-label>
+      <input matInput placeholder="Neptun code" formControlName="neptunCode">
+      <mat-error *ngIf="neptunCode?.invalid">{{getNeptunCodeErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" formControlName="name">
+      <mat-error *ngIf="name?.invalid">{{getNameErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" formControlName="email">
+      <mat-error *ngIf="email?.invalid">{{getEmailErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Position</mat-label>
+      <mat-select formControlName="position">
+        <mat-option *ngFor="let position of positions" [value]="position">
+          {{ Position2LabelMapping[position] }}
+        </mat-option>
+    </mat-select>
+      <mat-error *ngIf="position?.invalid">{{getPositionErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <button mat-raised-button color="primary" type [disabled]="teachersForm.invalid">Create</button>
+</form>
+<p>
+  Form Status: {{ teachersForm.status }}
+</p>
