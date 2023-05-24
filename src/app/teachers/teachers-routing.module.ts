@@ -4,6 +4,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { TeachersCreateComponent } from './teachers-create/teachers-create.component';
 import { TeachersListComponent } from './teachers-list/teachers-list.component';
 import { TeachersComponent } from './teachers/teachers.component';
+import { TeachersUpdateComponent } from './teachers-update/teachers-update.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
           {
             path: 'create',
             component: TeachersCreateComponent,
+          },
+          {
+            path: 'edit/:teacherId',
+            component: TeachersUpdateComponent,
           },
         ],
       },

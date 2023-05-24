@@ -19,6 +19,7 @@ import { TeachersComponent } from './teachers/teachers.component';
 import { TeachersCreateComponent } from './teachers-create/teachers-create.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { TeachersUpdateComponent } from './teachers-update/teachers-update.component';
 
 @NgModule({
   imports: [
@@ -40,7 +41,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatSortModule,
     MatSelectModule,
   ],
-  declarations: [TeachersComponent, TeachersListComponent, TeachersCreateComponent],
+  declarations: [TeachersComponent, TeachersListComponent, TeachersCreateComponent, TeachersUpdateComponent],
   providers: [TeachersService],
 })
 export class TeachersModule {}

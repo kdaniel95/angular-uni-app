@@ -11,16 +11,20 @@ const TEACHERS_URL = 'api/teachers';
 export class TeachersService {
   constructor(private requestService: RequestService) {}
 
+  getTeacher(id: number): Observable<any>
+  {
+    return this.requestService.get<Teacher>(`${TEACHERS_URL}/${id}`);
+  }
+
   getTeachers(): Observable<Teacher[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-    return this.requestService.get<Teacher[]>(TEACHERS_URL, httpOptions);
+    return this.requestService.get<Teacher[]>(TEACHERS_URL);
   }
 
   createTeacher(teacher: TeacherModel): Observable<any> {
     return this.requestService.post(`${TEACHERS_URL}/`, teacher);
+  }
+
+  updateTeacher(teacher: TeacherModel): Observable<any> {
+    return this.requestService.put(`${TEACHERS_URL}/`, teacher);
   }
 }

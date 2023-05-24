@@ -3,12 +3,24 @@ import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { EMPTY } from 'rxjs';
 import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import { TeachersService } from '../teachers.service';
-import { TeacherActionTypes, teacherCreatedAction, teachersLoadedAction } from './teachers.actions';
+import { TeacherActionTypes, teacherCreatedAction, teacherLoadedAction, teacherUpdatedAction, teachersLoadedAction } from './teachers.actions';
 import { selectNextTeacherId } from './teachers.selectors';
 import { Store } from '@ngrx/store';
 
 @Injectable()
 export class TeacherEffects {
+
+  loadTeacher$ = createEffect(() => this.actions$.pipe(
+    ofType(TeacherActionTypes.teacherRequested),
+    switchMap((action: any) => this.teachersService.getTeacher(action.id)
+      .pipe(
+        map(teacher => (teacherLoadedAction({teacher}))),
+        catchError(() => EMPTY)
+      ))
+    )
+  );
+
+
   loadTeachers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TeacherActionTypes.teachersRequested),
@@ -33,6 +45,24 @@ export class TeacherEffects {
               name: action['name'],
               email: action['email'],
               position: action['position']
+            }});
+        }),
+        catchError(() => EMPTY)
+      )
+    })
+  ))
+
+  updateTeacher$ = createEffect(() => this.actions$.pipe(
+    ofType(TeacherActionTypes.teacherUpdate),
+    switchMap((action) => {
+      return this.teachersService.updateTeacher(action).pipe(
+        map(() => {
+            return teacherUpdatedAction({ teacher: {
+              id: action['id'],
+              neptunCode: action['neptunCode'],
+              name: action['neptunCode'],
+              email: action['neptunCode'],
+              position: action['neptunCode'],
             }});
         }),
         catchError(() => EMPTY)
