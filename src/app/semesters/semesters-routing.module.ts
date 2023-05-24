@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
 import { SemestersListComponent } from './semester-list/semesters-list.component';
 import { SemestersComponent } from './semester/semester.component';
+import { SemestersCreateComponent } from './semesters-create/semesters-create.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,16 @@ const routes: Routes = [
           {
             path: '',
             component: SemestersListComponent,
+          },
+        ],
+      },
+      {
+        path: 'create',
+        canActivateChild: [AuthGuard],
+        children: [
+          {
+            path: '',
+            component: SemestersCreateComponent,
           },
         ],
       },

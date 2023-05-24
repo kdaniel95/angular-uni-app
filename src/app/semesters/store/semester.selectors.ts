@@ -10,3 +10,10 @@ export const selectSemesters = createSelector(
     return state.semesters;
   }
 );
+
+export const selectNextSemesterId = createSelector(
+  selectSemesters,
+  (semesters) => {
+    return semesters.length+1;
+  }
+);

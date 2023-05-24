@@ -1,5 +1,5 @@
-import { createReducer, on } from '@ngrx/store';
-import { semestersLoadedAction } from './semester.actions';
+import { createReducer, on, select } from '@ngrx/store';
+import { semesterCreateAction, semestersLoadedAction } from './semester.actions';
 import { SemesterModel } from './semester.model';
 
 export const semestersFeatureKey = 'semestersFeature';
@@ -14,5 +14,6 @@ export const initialState: SemestersFeatureState = {
 
 export const semesterReducer = createReducer(
   initialState,
-  on(semestersLoadedAction, (state, { semesters }) => ({ ...state, semesters }))
+  on(semestersLoadedAction, (state, { semesters }) => ({ ...state, semesters })),
+  on(semesterCreateAction, (state) => ({...state})),
 );
