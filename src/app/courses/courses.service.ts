@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Course } from '../data/course.data';
 import { RequestService } from '../request.service';
+import { CourseModel } from './store/course.model';
 
 const COURSES_URL = 'api/courses';
 
@@ -17,5 +18,9 @@ export class CoursesService {
       }),
     };
     return this.requestService.get<Course[]>(COURSES_URL, httpOptions);
+  }
+
+  createCourse(course: CourseModel): Observable<any> {
+    return this.requestService.post(`${COURSES_URL}/`, course);
   }
 }

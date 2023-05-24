@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Filterable } from 'src/app/util/filterable';
 import { coursesRequestedAction } from '../store/course.actions';
 import { CourseModel } from '../store/course.model';
-import { selectTeachers } from '../store/course.selectors';
+import { selectCourses } from '../store/course.selectors';
 
 @Component({
   selector: 'app-courses-list',
@@ -20,7 +20,7 @@ export class CoursesListComponent
 
   displayedColumns: string[] = ['name', 'code', 'credits', 'department'];
 
-  courses$: Observable<CourseModel[]> = this.store.pipe(select(selectTeachers));
+  courses$: Observable<CourseModel[]> = this.store.pipe(select(selectCourses));
 
   constructor(private store: Store) {
     super();

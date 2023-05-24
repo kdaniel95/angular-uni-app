@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { coursesLoadedAction } from './course.actions';
+import { courseCreateAction, coursesLoadedAction } from './course.actions';
 import { CourseModel } from './course.model';
 
 export const coursesFeatureKey = 'coursesFeature';
@@ -14,5 +14,6 @@ export const initialState: CoursesFeatureState = {
 
 export const coursesReducer = createReducer(
   initialState,
-  on(coursesLoadedAction, (state, { courses }) => ({ ...state, courses }))
+  on(coursesLoadedAction, (state, { courses }) => ({ ...state, courses })),
+  on(courseCreateAction, (state) => ({...state})),
 );

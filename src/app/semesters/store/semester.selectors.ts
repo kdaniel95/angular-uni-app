@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { SemestersFeatureState, semestersFeatureKey } from './semester.reducer';
+import { SemesterModel } from './semester.model';
 
 export const selectFeature =
   createFeatureSelector<SemestersFeatureState>(semestersFeatureKey);
@@ -13,7 +14,7 @@ export const selectSemesters = createSelector(
 
 export const selectNextSemesterId = createSelector(
   selectSemesters,
-  (semesters) => {
+  (semesters: SemesterModel[]) => {
     return semesters.length+1;
   }
 );

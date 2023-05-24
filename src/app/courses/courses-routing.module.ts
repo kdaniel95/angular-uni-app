@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
 import { CoursesListComponent } from './course-list/courses-list.component';
 import { CoursesComponent } from './course/course.component';
+import { CoursesCreateComponent } from './courses-create/courses-create.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,16 @@ const routes: Routes = [
           {
             path: '',
             component: CoursesListComponent,
+          },
+        ],
+      },
+      {
+        path: 'create',
+        canActivateChild: [AuthGuard],
+        children: [
+          {
+            path: '',
+            component: CoursesCreateComponent,
           },
         ],
       },
