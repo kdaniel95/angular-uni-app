@@ -4,6 +4,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { SemestersListComponent } from './semester-list/semesters-list.component';
 import { SemestersComponent } from './semester/semester.component';
 import { SemestersCreateComponent } from './semesters-create/semesters-create.component';
+import { SemestersUpdateComponent } from './semesters-update/semesters-update.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,16 @@ const routes: Routes = [
           {
             path: '',
             component: SemestersCreateComponent,
+          },
+        ],
+      },
+      {
+        path: 'edit/:semesterId',
+        canActivateChild: [AuthGuard],
+        children: [
+          {
+            path: '',
+            component: SemestersUpdateComponent,
           },
         ],
       },

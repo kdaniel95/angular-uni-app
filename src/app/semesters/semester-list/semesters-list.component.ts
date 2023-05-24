@@ -18,7 +18,7 @@ export class SemestersListComponent
 {
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['name', 'startDate', 'endDate'];
+  displayedColumns: string[] = ['name', 'startDate', 'endDate', 'actions'];
 
   semesters$: Observable<SemesterModel[]> = this.store.pipe(
     select(selectSemesters)

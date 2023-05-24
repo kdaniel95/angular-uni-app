@@ -11,16 +11,20 @@ const SEMESTERS_URL = 'api/semesters';
 export class SemestersService {
   constructor(private requestService: RequestService) {}
 
+  getSemester(id: number): Observable<any>
+  {
+    return this.requestService.get<Semester>(`${SEMESTERS_URL}/${id}`);
+  }
+
   getSemesters(): Observable<Semester[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-    return this.requestService.get<Semester[]>(SEMESTERS_URL, httpOptions);
+    return this.requestService.get<Semester[]>(SEMESTERS_URL);
   }
 
   createSemester(semester: SemesterModel): Observable<any> {
     return this.requestService.post(`${SEMESTERS_URL}/`, semester);
+  }
+
+  updateSemester(semester:SemesterModel): Observable<any> {
+    return this.requestService.put(`${SEMESTERS_URL}/`, semester)
   }
 }

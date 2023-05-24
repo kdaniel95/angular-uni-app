@@ -20,6 +20,7 @@ import { SemestersRoutingModule } from './semesters-routing.module';
 import { SemestersService } from './semesters.service';
 import { SemesterEffects } from './store/semester.effects';
 import * as fromSemesters from './store/semester.reducer';
+import { SemestersUpdateComponent } from './semesters-update/semesters-update.component';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import * as fromSemesters from './store/semester.reducer';
     SemestersComponent,
     SemestersListComponent,
     SemestersCreateComponent,
+    SemestersUpdateComponent,
   ],
   providers: [SemestersService],
 })
