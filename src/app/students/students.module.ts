@@ -16,6 +16,9 @@ import { StudentsListComponent } from './student-list/students-list.component';
 import { StudentsComponent } from './student/student.component';
 import { StudentsRoutingModule } from './students-routing.module';
 import { StudentsService } from './students.service';
+import { StudentsCreateComponent } from './students-create/students-create.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   imports: [
@@ -29,13 +32,15 @@ import { StudentsService } from './students.service';
       fromStudents.studentsReducer
     ),
     EffectsModule.forFeature([StudentsEffects]),
-    MatButtonModule,
     MatCardModule,
+    MatButtonModule,
+    MatIconModule,
     MatInputModule,
     MatTableModule,
     MatSortModule,
+    MatSelectModule,
   ],
-  declarations: [StudentsComponent, StudentsListComponent],
+  declarations: [StudentsComponent, StudentsListComponent, StudentsCreateComponent],
   providers: [StudentsService],
 })
 export class StudentsModule {}

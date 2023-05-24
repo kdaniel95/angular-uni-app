@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Student } from '../data/student.data';
 import { RequestService } from '../request.service';
+import { StudentModel } from './store/student.model';
 
 const STUDENTS_URL = 'api/students';
 
@@ -17,5 +18,9 @@ export class StudentsService {
       }),
     };
     return this.requestService.get<Student[]>(STUDENTS_URL, httpOptions);
+  }
+
+  createStudent(student: StudentModel): Observable<any> {
+    return this.requestService.post(`${STUDENTS_URL}/`, student);
   }
 }

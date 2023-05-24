@@ -8,6 +8,15 @@ export enum Major {
   BiBSc = 'biBSc',
 }
 
+export const Major2LabelMapping: Record<Major, string> = {
+  [Major.CeMSc]: 'Computer Engineering MSc',
+  [Major.SeMSc]: 'Systems Engineering MSc',
+  [Major.CeBSc]: 'Computer Engineering BSc',
+  [Major.SeBSc]: 'Systems Engineering BSc',
+  [Major.BiBSc]: 'Business Informatics BSc',
+};
+
+
 // A hallgatóknak van Neptun kódja, neve, email címe és szakja.
 export interface Student {
   id: number;
