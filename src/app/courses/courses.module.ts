@@ -18,6 +18,7 @@ import * as fromCourses from './store/course.reducer';
 import { CoursesCreateComponent } from './courses-create/courses-create.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { CoursesUpdateComponent } from './courses-update/courses-update.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     MatSortModule,
   ],
-  declarations: [CoursesComponent, CoursesListComponent, CoursesCreateComponent],
+  declarations: [CoursesComponent, CoursesListComponent, CoursesCreateComponent, CoursesUpdateComponent],
   providers: [CoursesService],
 })
 export class CoursesModule {}

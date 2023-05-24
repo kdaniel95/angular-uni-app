@@ -21,7 +21,7 @@ export class CoursesCreateComponent {
   ngOnInit(): void {
     this.coursesForm = this.formBuilder.group({
       name: ['', [Validators.required]],
-      code: ['', [Validators.required, Validators.maxLength(4)]],
+      code: ['', [Validators.required, Validators.maxLength(5)]],
       credits: ['', [Validators.required, Validators.min(1)]],
       department: ['', [Validators.required]],
     });

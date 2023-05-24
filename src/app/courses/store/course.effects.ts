@@ -3,12 +3,23 @@ import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { EMPTY } from 'rxjs';
 import { map, mergeMap, catchError, switchMap } from 'rxjs/operators';
 import { CoursesService } from '../courses.service';
-import { CourseActionTypes, courseCreatedAction, coursesLoadedAction } from './course.actions';
+import { CourseActionTypes, courseCreatedAction, courseLoadedAction, courseUpdatedAction, coursesLoadedAction } from './course.actions';
 import { Store } from '@ngrx/store';
 import { selectNextCourseId } from './course.selectors';
 
 @Injectable()
 export class CoursesEffects {
+  loadCourse$ =  createEffect(() => this.actions$.pipe(
+    ofType(CourseActionTypes.courseRequested),
+    switchMap((action: any) => this.coursesService.getCourse(action.id)
+      .pipe(
+        map(course => (courseLoadedAction({course}))),
+        catchError(() => EMPTY)
+      )))
+  );
+
+
+
   loadCourses$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CourseActionTypes.coursesRequested),
@@ -39,6 +50,25 @@ export class CoursesEffects {
       )
     }))
   );
+
+  updateCourse$ = createEffect(() => this.actions$.pipe(
+    ofType(CourseActionTypes.courseUpdate),
+    switchMap((action) => {
+      return this.coursesService.updateCourse(action).pipe(
+        map(() => {
+            return courseUpdatedAction({ course: {
+              id: action['id'],
+              name: action['name'],
+              code: action['code'],
+              credits: action['credits'],
+              department: action['department']
+            }});
+        }),
+        catchError(() => EMPTY)
+      )
+    })
+  ))
+
 
 
   constructor(

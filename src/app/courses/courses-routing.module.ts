@@ -4,6 +4,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { CoursesListComponent } from './course-list/courses-list.component';
 import { CoursesComponent } from './course/course.component';
 import { CoursesCreateComponent } from './courses-create/courses-create.component';
+import { CoursesUpdateComponent } from './courses-update/courses-update.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,16 @@ const routes: Routes = [
           {
             path: '',
             component: CoursesCreateComponent,
+          },
+        ],
+      },
+      {
+        path: 'edit/:courseId',
+        canActivateChild: [AuthGuard],
+        children: [
+          {
+            path: '',
+            component: CoursesUpdateComponent,
           },
         ],
       },

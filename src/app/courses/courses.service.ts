@@ -11,6 +11,11 @@ const COURSES_URL = 'api/courses';
 export class CoursesService {
   constructor(private requestService: RequestService) {}
 
+  getCourse(id: number): Observable<any>
+  {
+    return this.requestService.get<Course>(`${COURSES_URL}/${id}`);
+  }
+
   getCourses(): Observable<Course[]> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -22,5 +27,9 @@ export class CoursesService {
 
   createCourse(course: CourseModel): Observable<any> {
     return this.requestService.post(`${COURSES_URL}/`, course);
+  }
+
+  updateCourse(course: CourseModel): Observable<any> {
+    return this.requestService.put(`${COURSES_URL}/`, course);
   }
 }
