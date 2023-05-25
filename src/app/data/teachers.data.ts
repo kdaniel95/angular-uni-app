@@ -1,3 +1,5 @@
+import { Role } from './role.enum';
+import { User } from './user.data';
 // docens, adjunktus, mesteroktató, ügyvivő szakértő, tanársegéd, egyéb.
 export enum Position {
   AssociateProf = 'associate_prof',
@@ -18,7 +20,7 @@ export const Position2LabelMapping: Record<Position, string> = {
 };
 
 // Az oktatóknak van Neptun kódja, neve, email címe, beosztása.
-export interface Teacher {
+export interface Teacher extends User {
   id: number;
   neptunCode: string;
   name: string;
@@ -34,6 +36,9 @@ export class TeacherTable {
       name: 'John Doe',
       email: 'john.doe@example.com',
       position: Position.AssociateProf,
+      department: 'Dept 1',
+      dob: new Date('1975-01-01'),
+      roles: [Role.Teacher]
     },
     {
       id: 2,
@@ -41,6 +46,9 @@ export class TeacherTable {
       name: 'Jane Smith',
       email: 'jane.smith@example.com',
       position: Position.AssistantProf,
+      department: 'Dept 2',
+      dob: new Date('1975-01-01'),
+      roles: [Role.Teacher]
     },
     {
       id: 3,
@@ -48,6 +56,9 @@ export class TeacherTable {
       name: 'Alice Johnson',
       email: 'alice.johnson@example.com',
       position: Position.MasterInstructor,
+      department: 'Dept 3',
+      dob: new Date('1975-01-01'),
+      roles: [Role.Admin, Role.Teacher]
     },
     {
       id: 4,
@@ -55,6 +66,9 @@ export class TeacherTable {
       name: 'Bob Anderson',
       email: 'bob.anderson@example.com',
       position: Position.AdminExpert,
+      department: 'Dept 4',
+      dob: new Date('1975-01-01'),
+      roles: [Role.Admin]
     },
   ];
 }

@@ -43,7 +43,10 @@ export class StudentsEffects {
               neptunCode: action['neptunCode'],
               name: action['name'],
               email: action['email'],
-              major: action['major']
+              major: action['major'],
+              roles: action['roles'],
+              dob: action['dob'],
+              department: 'unknown',
             }});
         }),
         catchError(() => EMPTY)
@@ -59,9 +62,12 @@ export class StudentsEffects {
             return studentUpdatedAction({ student: {
               id: action['id'],
               neptunCode: action['neptunCode'],
-              name: action['neptunCode'],
-              email: action['neptunCode'],
-              major: action['maj'],
+              name: action['name'],
+              email: action['email'],
+              major: action['major'],
+              roles: action['roles'],
+              dob: action['dob'],
+              department: 'unknown',
             }});
         }),
         catchError(() => EMPTY)

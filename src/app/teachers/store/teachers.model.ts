@@ -1,3 +1,4 @@
+import { Role } from 'src/app/data/role.enum';
 import { Position, Teacher } from '../../data/teachers.data';
 
 export class TeacherModel implements Teacher {
@@ -6,5 +7,8 @@ export class TeacherModel implements Teacher {
   name: string;
   email: string;
   position: Position;
+  dob: Date;
+  department: string;
+  roles: Role[];
   [key: string]: any;
 }

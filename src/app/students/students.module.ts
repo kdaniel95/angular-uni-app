@@ -20,6 +20,8 @@ import { StudentsCreateComponent } from './students-create/students-create.compo
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { StudentsUpdateComponent } from './students-update/students-update.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   imports: [
@@ -40,6 +42,8 @@ import { StudentsUpdateComponent } from './students-update/students-update.compo
     MatTableModule,
     MatSortModule,
     MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
   ],
   declarations: [StudentsComponent, StudentsListComponent, StudentsCreateComponent, StudentsUpdateComponent],
   providers: [StudentsService],

@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Position, Position2LabelMapping } from 'src/app/data/teachers.data';
-import { regExValidator } from 'src/app/validators/regex.validator';
+import { neptunCodeValidator } from 'src/app/validators/neptunCode.validator';
 import { teacherRequestedAction, teacherUpdateAction } from '../store/teachers.actions';
 import { map } from 'rxjs';
 import { selectLoadedTeacher } from '../store/teachers.selectors';
+import { Role, Role2LabelMapping } from 'src/app/data/role.enum';
 
 @Component({
   selector: 'app-teachers-update',
@@ -17,8 +18,10 @@ export class TeachersUpdateComponent {
   teachersForm: FormGroup;
 
   Position2LabelMapping = Position2LabelMapping;
+  Role2LabelMapping = Role2LabelMapping;
 
   positions = Object.values(Position);
+  roless = Object.values(Role);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,6 +44,9 @@ export class TeachersUpdateComponent {
           this.teachersForm.controls['name'].setValue(teacher.name);
           this.teachersForm.controls['email'].setValue(teacher.email);
           this.teachersForm.controls['position'].setValue(teacher.position);
+          this.teachersForm.controls['roles'].setValue(teacher.roles);
+          this.teachersForm.controls['department'].setValue(teacher.department);
+          this.teachersForm.controls['dob'].setValue(teacher.dob);
         }
       });
 
@@ -49,11 +55,14 @@ export class TeachersUpdateComponent {
       id: [{value: 0, disabled: true}, [Validators.required]],
       neptunCode: [
         '',
-        [Validators.required, regExValidator(/^[a-zA-Z][a-zA-Z0-9]{5}$/i)],
+        [Validators.required, neptunCodeValidator()],
       ],
       name: ['', [Validators.required, Validators.maxLength(50)]],
       email: ['', [Validators.required, Validators.email]],
       position: ['', [Validators.required]],
+      department: ['', [Validators.required]],
+      dob: ['', [Validators.required]],
+      roles: ['', [Validators.required]]
     });
   }
 
@@ -75,12 +84,22 @@ export class TeachersUpdateComponent {
   get position() {
     return this.teachersForm.get('position');
   }
+  get roles(){
+    return this.teachersForm.get('roles');
+  }
+  get dob(){
+    return this.teachersForm.get('dob');
+  }
+  get department(){
+    return this.teachersForm.get('department');
+  }
+
 
   getNeptunCodeErrorMessage() {
     if (this.neptunCode?.dirty || this.neptunCode?.touched) {
       if (this.neptunCode.hasError('required'))
         return 'You must enter a value!';
-      if (this.neptunCode.hasError('regEx'))
+      if (this.neptunCode.hasError('neptunCode'))
         return 'You must enter a valid Neptun code!';
     }
     return '';
@@ -106,6 +125,27 @@ export class TeachersUpdateComponent {
   getPositionErrorMessage() {
     if (this.position?.dirty || this.position?.touched) {
       if (this.position.hasError('required')) return 'You must enter a value!';
+    }
+    return '';
+  }
+
+  getDepartmentErrorMessage() {
+    if (this.department?.dirty || this.department?.touched) {
+      if (this.department.hasError('required')) return 'You must enter a value!';
+    }
+    return '';
+  }
+
+  getRolesErrorMessage() {
+    if (this.roles?.dirty || this.roles?.touched) {
+      if (this.roles.hasError('required')) return 'You must enter a value!';
+    }
+    return '';
+  }
+
+  getDobErrorMessage() {
+    if (this.dob?.dirty || this.dob?.touched) {
+      if (this.dob.hasError('required')) return 'You must enter a value!';
     }
     return '';
   }

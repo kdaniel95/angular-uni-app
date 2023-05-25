@@ -3,10 +3,11 @@ import { studentRequestedAction, studentUpdateAction } from '../store/student.ac
 import { selectLoadedStudent } from '../store/student.selectors';
 import { Store, select } from '@ngrx/store';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { regExValidator } from 'src/app/validators/regex.validator';
+import { neptunCodeValidator } from 'src/app/validators/neptunCode.validator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
 import { Major, Major2LabelMapping } from 'src/app/data/student.data';
+import { Role, Role2LabelMapping } from 'src/app/data/role.enum';
 
 @Component({
   selector: 'app-students-update',
@@ -18,7 +19,11 @@ export class StudentsUpdateComponent implements OnInit {
 
   Major2LabelMapping = Major2LabelMapping;
 
+  Role2LabelMapping = Role2LabelMapping;
+
   majors = Object.values(Major);
+
+  roless = Object.values(Role);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,6 +43,8 @@ export class StudentsUpdateComponent implements OnInit {
         if(student && this.studentsForm){
           this.studentsForm.controls['id'].setValue(student.id);
           this.studentsForm.controls['neptunCode'].setValue(student.neptunCode);
+          this.studentsForm.controls['roles'].setValue(student.roles);
+          this.studentsForm.controls['dob'].setValue(student.dob);
           this.studentsForm.controls['name'].setValue(student.name);
           this.studentsForm.controls['email'].setValue(student.email);
           this.studentsForm.controls['major'].setValue(student.major);
@@ -49,11 +56,13 @@ export class StudentsUpdateComponent implements OnInit {
       id: [{value: 0, disabled: true}, [Validators.required]],
       neptunCode: [
         '',
-        [Validators.required, regExValidator(/^[a-zA-Z][a-zA-Z0-9]{5}$/i)],
+        [Validators.required, neptunCodeValidator()],
       ],
+      dob: ['', [Validators.required]],
       name: ['', [Validators.required, Validators.maxLength(50)]],
       email: ['', [Validators.required, Validators.email]],
       major: ['', [Validators.required]],
+      roles: ['', [Validators.required]]
     });
   }
 
@@ -75,12 +84,15 @@ export class StudentsUpdateComponent implements OnInit {
   get major() {
     return this.studentsForm.get('major');
   }
+  get dob(){
+    return this.studentsForm.get('dob');
+  }
 
   getNeptunCodeErrorMessage() {
     if (this.neptunCode?.dirty || this.neptunCode?.touched) {
       if (this.neptunCode.hasError('required'))
         return 'You must enter a value!';
-      if (this.neptunCode.hasError('regEx'))
+      if (this.neptunCode.hasError('neptunCode'))
         return 'You must enter a valid Neptun code!';
     }
     return '';
@@ -106,6 +118,13 @@ export class StudentsUpdateComponent implements OnInit {
   getMajorErrorMessage() {
     if (this.major?.dirty || this.major?.touched) {
       if (this.major.hasError('required')) return 'You must enter a value!';
+    }
+    return '';
+  }
+
+  getDobErrorMessage() {
+    if (this.dob?.dirty || this.dob?.touched) {
+      if (this.dob.hasError('required')) return 'You must enter a value!';
     }
     return '';
   }

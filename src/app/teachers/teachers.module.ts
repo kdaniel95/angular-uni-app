@@ -20,6 +20,8 @@ import { TeachersCreateComponent } from './teachers-create/teachers-create.compo
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { TeachersUpdateComponent } from './teachers-update/teachers-update.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   imports: [
@@ -40,6 +42,8 @@ import { TeachersUpdateComponent } from './teachers-update/teachers-update.compo
     MatTableModule,
     MatSortModule,
     MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
   ],
   declarations: [TeachersComponent, TeachersListComponent, TeachersCreateComponent, TeachersUpdateComponent],
   providers: [TeachersService],

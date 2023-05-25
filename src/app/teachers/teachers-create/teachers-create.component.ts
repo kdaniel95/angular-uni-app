@@ -1,8 +1,9 @@
+import { Role, Role2LabelMapping } from 'src/app/data/role.enum';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { regExValidator } from 'src/app/validators/regex.validator';
+import { neptunCodeValidator } from 'src/app/validators/neptunCode.validator';
 import { teacherCreateAction } from '../store/teachers.actions';
 import { Position, Position2LabelMapping } from './../../data/teachers.data';
 
@@ -15,8 +16,10 @@ export class TeachersCreateComponent implements OnInit {
   teachersForm: FormGroup;
 
   Position2LabelMapping = Position2LabelMapping;
+  Role2LabelMapping = Role2LabelMapping;
 
   positions = Object.values(Position);
+  roless = Object.values(Role);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,11 +31,14 @@ export class TeachersCreateComponent implements OnInit {
     this.teachersForm = this.formBuilder.group({
       neptunCode: [
         '',
-        [Validators.required, regExValidator(/^[a-zA-Z][a-zA-Z0-9]{5}$/i)],
+        [Validators.required, neptunCodeValidator()],
       ],
       name: ['', [Validators.required, Validators.maxLength(50)]],
       email: ['', [Validators.required, Validators.email]],
       position: ['', [Validators.required]],
+      department: ['', [Validators.required]],
+      dob: ['', [Validators.required]],
+      roles: ['', [Validators.required]]
     });
   }
 
@@ -54,12 +60,22 @@ export class TeachersCreateComponent implements OnInit {
   get position() {
     return this.teachersForm.get('position');
   }
+  get department()
+  {
+    return this.teachersForm.get('department');
+  }
+  get dob(){
+    return this.teachersForm.get('dob');
+  }
+  get roles(){
+    return this.teachersForm.get('roles');
+  }
 
   getNeptunCodeErrorMessage() {
     if (this.neptunCode?.dirty || this.neptunCode?.touched) {
       if (this.neptunCode.hasError('required'))
         return 'You must enter a value!';
-      if (this.neptunCode.hasError('regEx'))
+      if (this.neptunCode.hasError('neptunCode'))
         return 'You must enter a valid Neptun code!';
     }
     return '';
@@ -85,6 +101,27 @@ export class TeachersCreateComponent implements OnInit {
   getPositionErrorMessage() {
     if (this.position?.dirty || this.position?.touched) {
       if (this.position.hasError('required')) return 'You must enter a value!';
+    }
+    return '';
+  }
+
+  getDepartmentErrorMessage() {
+    if (this.department?.dirty || this.department?.touched) {
+      if (this.department.hasError('required')) return 'You must enter a value!';
+    }
+    return '';
+  }
+
+  getRolesErrorMessage() {
+    if (this.roles?.dirty || this.roles?.touched) {
+      if (this.roles.hasError('required')) return 'You must enter a value!';
+    }
+    return '';
+  }
+
+  getDobErrorMessage() {
+    if (this.dob?.dirty || this.dob?.touched) {
+      if (this.dob.hasError('required')) return 'You must enter a value!';
     }
     return '';
   }
