@@ -6,10 +6,12 @@ import { StudentSemesterCoursesService } from '../student_semester_courses.servi
 import {
   StudentSemesterCoursesActionType,
   studentSemesterCourseCreatedAction,
+  studentSemesterCourseDeleteAction,
   studentSemesterCoursesLoadedAction,
 } from './student_semester_course.actions';
 import { Store } from '@ngrx/store';
 import { selectNextStudentSemesterCourseId } from './student_semester_course.selectors';
+import { StudentSemesterCourse } from 'src/app/data/student_semester_course';
 
 @Injectable()
 export class StudentSemesterCoursesEffects {
@@ -29,7 +31,7 @@ export class StudentSemesterCoursesEffects {
     )
   );
 
-  createTeacherSemesterCourse$ =  createEffect(() => this.actions$.pipe(
+  createStudentSemesterCourse$ =  createEffect(() => this.actions$.pipe(
     ofType(StudentSemesterCoursesActionType.studentSemesterCourseCreate),
     concatLatestFrom(() => this.store.select(selectNextStudentSemesterCourseId)),
     switchMap(([action, id]) => {
@@ -46,6 +48,20 @@ export class StudentSemesterCoursesEffects {
       )
     }))
   )
+
+  deleteStudentSemesterCourse$ = createEffect(() => this.actions$.pipe(
+    ofType(StudentSemesterCoursesActionType.studentSemesterCourseDelete),
+    switchMap((action) => {
+      return this.studentSemesterCourseService.deleteStudentSemesterCourse(action['id']).pipe(
+        map((item: StudentSemesterCourse) => {
+            return studentSemesterCourseDeleteAction(item)
+        }),
+        catchError(() => {
+          return EMPTY;
+        })
+      )
+    })
+  ))
 
   constructor(
     private actions$: Actions,

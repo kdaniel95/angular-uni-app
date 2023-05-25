@@ -6,6 +6,8 @@ export enum StudentSemesterCoursesActionType {
   studentSemesterCoursesLoaded = '[StudentSemesterCourse] StudentSemesterCourse Loaded',
   studentSemesterCourseCreate = '[StudentSemesterCourse] StudentSemesterCourse Create',
   studentSemesterCourseCreated = '[StudentSemesterCourse] StudentSemesterCourse Created',
+  studentSemesterCourseDelete = '[StudentSemesterCourse] StudentSemesterCourse Delete',
+  studentSemesterCourseDeleted = '[StudentSemesterCourse] StudentSemesterCourse Deleted',
 }
 
 export const studentSemesterCoursesRequestedAction = createAction(
@@ -28,3 +30,12 @@ export const studentSemesterCourseCreatedAction = createAction(
   props<{ studentSemesterCourse: StudentSemesterCourse }>()
 );
 
+export const studentSemesterCourseDeleteAction = createAction(
+  StudentSemesterCoursesActionType.studentSemesterCourseDelete,
+  props<{ id: number }>()
+);
+
+export const studentSemesterCourseDeletedAction = createAction(
+  StudentSemesterCoursesActionType.studentSemesterCourseDeleted,
+  props<{ studentSemesterCourse: StudentSemesterCourse }>()
+);

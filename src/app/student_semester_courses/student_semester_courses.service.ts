@@ -22,4 +22,9 @@ export class StudentSemesterCoursesService {
   {
     return this.requestService.post(`${STUDENT_SEMESTER_COURSE_URL}/`, studentSemesterCourseModel);
   }
+
+  deleteStudentSemesterCourse(id: number):Observable<any>
+  {
+    return this.requestService.delete(`${STUDENT_SEMESTER_COURSE_URL}/${id}`);
+  }
 }
