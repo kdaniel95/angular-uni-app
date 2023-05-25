@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
 import { TeacherSemesterCourseComponent } from './teacher_semester_course/teacher_semester_course.component';
 import { TeacherSemesterCoursesListComponent } from './teacher_semester_courses-list/teacher_semester_courses_list.component';
+import { TeacherSemesterCoursesCreateComponent } from './teacher-semester-courses-create/teacher-semester-courses-create.component';
 
 const routes: Routes = [
   {
@@ -10,12 +11,29 @@ const routes: Routes = [
     component: TeacherSemesterCourseComponent,
     canActivate: [AuthGuard],
   },
-  { path: '', redirectTo: '/teacher_semester_course', pathMatch: 'full' },
+  {
+    path: '',
+    redirectTo: '/teacher_semester_course',
+    pathMatch: 'full'
+  },
+  {
+    path: 'create',
+    canActivateChild: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: TeacherSemesterCoursesCreateComponent,
+      },
+    ],
+  },
   {
     path: ':teacherId/:semesterId',
     component: TeacherSemesterCoursesListComponent,
   },
-  { path: '**', component: TeacherSemesterCourseComponent },
+  {
+    path: '**',
+    component: TeacherSemesterCourseComponent
+  },
 ];
 
 @NgModule({

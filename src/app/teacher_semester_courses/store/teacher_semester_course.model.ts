@@ -1,3 +1,4 @@
+import { Course } from 'src/app/data/course.data';
 import { TeacherSemesterCourse } from 'src/app/data/teacher_semester_course';
 
 export class TeacherSemesterCourseModel implements TeacherSemesterCourse {
@@ -7,5 +8,5 @@ export class TeacherSemesterCourseModel implements TeacherSemesterCourse {
   semesterId: number;
   semesterName?: string | undefined;
   courseId: number;
-  courseName?: string | undefined;
+  course?: Course | undefined;
 }

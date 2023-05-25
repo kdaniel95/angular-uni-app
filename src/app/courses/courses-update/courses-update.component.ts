@@ -76,7 +76,6 @@ export class CoursesUpdateComponent implements OnInit {
 
   getCodeErrorMessage() {
     if (this.code?.dirty || this.code?.touched) {
-      console.log(this.code);
       if (this.code.hasError('required')) return 'You must enter a value!';
       if (this.code.hasError('maxlength')) return 'You can enter at most 4 characters!';
     }

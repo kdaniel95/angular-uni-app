@@ -2,10 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TeacherSemesterCourse } from '../data/teacher_semester_course';
 import { RequestService } from '../request.service';
+import { TeacherSemesterCourseModel } from './store/teacher_semester_course.model';
+
+const TEACHER_SEMESTER_COURSES_URL = 'api/teacher_semester_courses';
 
 @Injectable()
 export class TeacherSemesterCoursesService {
-  [x: string]: any;
+
+
 
   constructor(private requestService: RequestService) {}
 
@@ -14,7 +18,11 @@ export class TeacherSemesterCoursesService {
     semesterId: number
   ): Observable<TeacherSemesterCourse[]> {
     return this.requestService.get<TeacherSemesterCourse[]>(
-      `api/teacher_semester_courses/${teacherId}/${semesterId}`
+      `${TEACHER_SEMESTER_COURSES_URL}/${teacherId}/${semesterId}`
     );
+  }
+
+  createTeacherSemesterCourse(teacherSemesterCourse: TeacherSemesterCourseModel): Observable<any> {
+    return this.requestService.post(`${TEACHER_SEMESTER_COURSES_URL}/`, teacherSemesterCourse);
   }
 }

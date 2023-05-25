@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { teachersSemesterCoursesLoadedAction } from './teacher_semester_course.actions';
+import { teacherSemesterCourseCreateAction, teachersSemesterCoursesLoadedAction } from './teacher_semester_course.actions';
 import { TeacherSemesterCourseModel } from './teacher_semester_course.model';
 
 export const teacherSemesterCoursesFeatureKey = 'teacherSemesterCoursesFeature';
@@ -19,6 +19,7 @@ export const teacherSemesterCoursesReducer = createReducer(
     (state, { teacherSemesterCourses }) => ({
       ...state,
       teacherSemesterCourses,
-    })
-  )
+    }),
+  ),
+  on(teacherSemesterCourseCreateAction, (state) => ({...state}))
 );
