@@ -15,3 +15,10 @@ export const selectStudentSemesterCourses = createSelector(
     return state.studentSemesterCourses;
   }
 );
+
+export const selectNextStudentSemesterCourseId = createSelector(
+  selectFeature,
+  (state: StudentSemesterCoursesFeatureState) => {
+    return state.studentSemesterCourses.length+1;
+  }
+);

@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import { TeacherSemesterCourse } from 'src/app/data/teacher_semester_course';
 import { TeacherSemesterCourseModel } from './teacher_semester_course.model';
 
 export enum TeacherSemesterCoursesActionType {
