@@ -1,3 +1,4 @@
+import { CacheResolverService } from './services/cache-resolver.service';
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -6,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 @Injectable()
 export class RequestService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cacheResolver: CacheResolverService) { }
 
   get<T>(url: string, options: object = {}): Observable<T> {
     return this.http.get<T>(url, options).pipe(
@@ -15,21 +16,33 @@ export class RequestService {
   }
 
   post<T>(url: string, body: any,  options: object = {}): Observable<T> {
-    return this.http.post<T>(url, body, options).pipe(
+    const returnVal = this.http.post<T>(url, body, options).pipe(
       catchError(this.handleError)
     );
+
+    this.deleteCache(url);
+
+    return returnVal;
   }
 
   put<T>(url: string, body: any, options: object = {}): Observable<T> {
-    return this.http.put<T>(url, body, options).pipe(
+    const returnVal = this.http.put<T>(url, body, options).pipe(
       catchError(this.handleError)
     );
+
+    this.deleteCache(url);
+
+    return returnVal;
   }
 
   delete<T>(url: string, options: object = {}): Observable<T> {
-    return this.http.delete<T>(url, options).pipe(
+    const returnVal = this.http.delete<T>(url, options).pipe(
       catchError(this.handleError)
     );
+
+    this.deleteCache(url);
+
+    return returnVal;
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -46,5 +59,9 @@ export class RequestService {
     // return an observable with a user-facing error message
     return throwError('Something bad happened; please try again later.');
   };
+
+  private deleteCache(key: string){
+    this.cacheResolver.delete(key.substring(0,key.lastIndexOf("/")));
+  }
 
 }
