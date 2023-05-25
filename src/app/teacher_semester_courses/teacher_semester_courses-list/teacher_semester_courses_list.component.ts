@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { teacherSemesterCoursesRequestedAction } from '../store/teacher_semester_course.actions';
+import { teacherSemesterCourseDeleteAction, teacherSemesterCoursesRequestedAction } from '../store/teacher_semester_course.actions';
 import { TeacherSemesterCourseModel } from '../store/teacher_semester_course.model';
 import { selectTeacherSemesterCourses } from '../store/teacher_semester_course.selectors';
 
@@ -14,12 +14,13 @@ import { selectTeacherSemesterCourses } from '../store/teacher_semester_course.s
 export class TeacherSemesterCoursesListComponent implements OnInit {
   constructor(private store: Store, private route: ActivatedRoute) {}
 
-  displayedColumns: string[] = ['name', 'code', 'credits', 'department'];
+  displayedColumns: string[] = ['name', 'code', 'credits', 'department', 'actions'];
 
   teachersSemesterCourses$: Observable<TeacherSemesterCourseModel[]> =
     this.store.pipe(select(selectTeacherSemesterCourses));
 
-  ngOnInit() {
+  loadData()
+  {
     this.route.paramMap.subscribe((params) => {
       const teacherId = params.get('teacherId') ?? 1;
       const semesterId = params.get('semesterId') ?? 1;
@@ -31,5 +32,14 @@ export class TeacherSemesterCoursesListComponent implements OnInit {
         })
       );
     });
+  }
+
+  ngOnInit() {
+    this.loadData();
+  }
+
+  onDelete(id: number){
+    this.store.dispatch(teacherSemesterCourseDeleteAction({id}));
+    this.loadData();
   }
 }

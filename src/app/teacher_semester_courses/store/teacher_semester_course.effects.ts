@@ -6,6 +6,7 @@ import { TeacherSemesterCoursesService } from '../teacher_semester_courses.servi
 import {
   TeacherSemesterCoursesActionType,
   teacherSemesterCourseCreatedAction,
+  teacherSemesterCourseDeleteAction,
   teachersSemesterCoursesLoadedAction,
 } from './teacher_semester_course.actions';
 import { selectNextTeacherSemesterCourseId } from './teacher_semester_course.selectors';
@@ -13,6 +14,7 @@ import { Store } from '@ngrx/store';
 import { TeacherTable } from 'src/app/data/teachers.data';
 import { CourseTable } from 'src/app/data/course.data';
 import { SemesterTable } from 'src/app/data/semester.data';
+import { TeacherSemesterCourse } from 'src/app/data/teacher_semester_course';
 
 @Injectable()
 export class TeacherSemesterCoursesEffects {
@@ -49,6 +51,20 @@ export class TeacherSemesterCoursesEffects {
       )
     }))
   )
+
+  deleteTeacherSemesterCourse$ = createEffect(() => this.actions$.pipe(
+    ofType(TeacherSemesterCoursesActionType.teacherSemesterCourseDelete),
+    switchMap((action) => {
+      return this.teacherSemesterCourseService.deleteTeacherSemesterCourse(action['id']).pipe(
+        map((item: TeacherSemesterCourse) => {
+            return teacherSemesterCourseDeleteAction(item)
+        }),
+        catchError(() => {
+          return EMPTY;
+        })
+      )
+    })
+  ))
 
   constructor(
     private actions$: Actions,

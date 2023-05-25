@@ -5,7 +5,9 @@ export enum TeacherSemesterCoursesActionType {
   teacherSemesterCoursesRequested = '[TeacherSemesterCourse] TeacherSemesterCourse Requested',
   teachersSemesterCoursesLoaded = '[TeacherSemesterCourse] TeacherSemesterCourse Loaded',
   teacherSemesterCourseCreate = '[TeacherSemesterCourse] TeacherSemesterCourse Create',
-  teacherSemesterCourseCreated = '[TeacherSemesterCourse] TeacherSemesterCourse Created'
+  teacherSemesterCourseCreated = '[TeacherSemesterCourse] TeacherSemesterCourse Created',
+  teacherSemesterCourseDelete = '[TeacherSemesterCourse] TeacherSemesterCourse Delete',
+  teacherSemesterCourseDeleted = '[TeacherSemesterCourse] TeacherSemesterCourse Deleted'
 }
 
 export const teacherSemesterCoursesRequestedAction = createAction(
@@ -25,5 +27,15 @@ export const teacherSemesterCourseCreateAction = createAction(
 
 export const teacherSemesterCourseCreatedAction = createAction(
   TeacherSemesterCoursesActionType.teacherSemesterCourseCreated,
+  props<{ teacherSemesterCourse: TeacherSemesterCourseModel }>()
+);
+
+export const teacherSemesterCourseDeleteAction = createAction(
+  TeacherSemesterCoursesActionType.teacherSemesterCourseDelete,
+  props<{ id: number }>()
+);
+
+export const teacherSemesterCourseDeletedAction = createAction(
+  TeacherSemesterCoursesActionType.teacherSemesterCourseDeleted,
   props<{ teacherSemesterCourse: TeacherSemesterCourseModel }>()
 );

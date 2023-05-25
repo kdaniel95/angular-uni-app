@@ -25,4 +25,8 @@ export class TeacherSemesterCoursesService {
   createTeacherSemesterCourse(teacherSemesterCourse: TeacherSemesterCourseModel): Observable<any> {
     return this.requestService.post(`${TEACHER_SEMESTER_COURSES_URL}/`, teacherSemesterCourse);
   }
+
+  deleteTeacherSemesterCourse(id: number): Observable<any> {
+    return this.requestService.delete(`${TEACHER_SEMESTER_COURSES_URL}/${id}`);
+  }
 }
