@@ -5,6 +5,7 @@ import { TeachersCreateComponent } from './teachers-create/teachers-create.compo
 import { TeachersListComponent } from './teachers-list/teachers-list.component';
 import { TeachersComponent } from './teachers/teachers.component';
 import { TeachersUpdateComponent } from './teachers-update/teachers-update.component';
+import { Role } from '../data/role.enum';
 
 const routes: Routes = [
   {
@@ -23,10 +24,12 @@ const routes: Routes = [
           {
             path: 'create',
             component: TeachersCreateComponent,
+            data: {role: Role.Admin},
           },
           {
             path: 'edit/:teacherId',
             component: TeachersUpdateComponent,
+            data: {role: Role.Admin},
           },
         ],
       },

@@ -1,9 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AuthService } from './auth.service';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'hello',
   template: `<mat-card>
     <h2>Hello {{name}}!</h2>
+    <h3 *ngIf="userData"><a href="#" (click)="logout()">Logout</a></h3>
     <nav>
       <ul>
         <li>
@@ -42,6 +45,27 @@ import { Component, Input } from '@angular/core';
   </mat-card>`,
   styles: [`h1 { font-family: Lato; }`]
 })
-export class HelloComponent  {
+export class HelloComponent implements OnInit, OnDestroy  {
   @Input() name: string;
+
+  userDataSub: Subscription;
+  userData: any;
+
+  constructor(private auth: AuthService){}
+
+  ngOnInit(): void {
+    this.userDataSub = this.auth.userData$.subscribe(
+      (data: any) => this.userData = data
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.userDataSub.unsubscribe();
+  }
+
+  logout(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('userData');
+  }
+
 }

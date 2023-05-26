@@ -5,6 +5,7 @@ import { StudentsListComponent } from './student-list/students-list.component';
 import { StudentsComponent } from './student/student.component';
 import { StudentsCreateComponent } from './students-create/students-create.component';
 import { StudentsUpdateComponent } from './students-update/students-update.component';
+import { Role } from '../data/role.enum';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
       {
         path: 'create',
         canActivateChild: [AuthGuard],
+        data: {role: Role.Admin},
         children: [
           {
             path: '',
@@ -35,6 +37,7 @@ const routes: Routes = [
       {
         path: 'edit/:studentId',
         canActivateChild: [AuthGuard],
+        data: {role: Role.Admin},
         children: [
           {
             path: '',

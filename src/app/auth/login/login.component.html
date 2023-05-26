@@ -1,0 +1,19 @@
+<h2>Login</h2>
+
+<form (submit)="login()">
+  <div>
+    <mat-form-field>
+      <mat-label>Neptun</mat-label>
+      <input matInput [(ngModel)]="neptunCode" name="username" type="text">
+    </mat-form-field>
+  </div>
+  <div>
+<mat-form-field>
+  <mat-label>Password</mat-label>
+  <input type="password" name="password" matInput>
+</mat-form-field>
+  </div>
+  <button mat-button color="primary">Login</button>
+
+  <p *ngIf="loginError" style="color: red;">Login failed. Please check your username and password.</p>
+</form>

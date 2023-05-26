@@ -13,7 +13,6 @@ export class CacheResolverService {
   }
 
   get(key: string) {
-    console.log(this.cache);
     return this.cache.get(key);
   }
 

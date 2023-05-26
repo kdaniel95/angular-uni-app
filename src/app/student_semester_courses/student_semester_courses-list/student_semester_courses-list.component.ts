@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { studentSemesterCourseDeleteAction, studentSemesterCoursesRequestedAction } from '../store/student_semester_course.actions';
 import { StudentSemesterCourseModel } from '../store/student_semester_course.model';
 import { selectStudentSemesterCourses } from '../store/student_semester_course.selectors';
+import { AuthService } from 'src/app/auth.service';
+import { Role } from 'src/app/data/role.enum';
 
 @Component({
   selector: 'app-student_semester_courses-list',
@@ -12,7 +14,12 @@ import { selectStudentSemesterCourses } from '../store/student_semester_course.s
   styleUrls: ['./student_semester_courses-list.component.css'],
 })
 export class StudentSemesterCoursesListComponent implements OnInit {
-  constructor(private store: Store, private route: ActivatedRoute) {}
+
+  userData: any;
+
+  constructor(private store: Store, private route: ActivatedRoute, auth: AuthService) {
+    auth.userData$.subscribe(data => this.userData = data);
+  }
 
   displayedColumns: string[] = ['name', 'code', 'credits', 'department', 'actions'];
 
@@ -39,6 +46,10 @@ export class StudentSemesterCoursesListComponent implements OnInit {
 
   onDelete(id: number)
   {
+    if(!this.userData['roles'].includes(Role.Admin)){
+      return;
+    }
+
     this.store.dispatch(studentSemesterCourseDeleteAction({id}));
     this.loadData();
   }

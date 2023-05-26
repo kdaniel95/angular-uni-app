@@ -5,6 +5,7 @@ import {
   CanActivateChild,
   CanLoad,
   Route,
+  Router,
   RouterStateSnapshot,
 } from '@angular/router';
 import { AuthService } from '../auth.service';
@@ -13,13 +14,39 @@ import { AuthService } from '../auth.service';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
-  constructor(private authService: AuthService) {}
+  private userData: any;
+
+  constructor(private authService: AuthService, private router: Router) {
+    this.authService.userData$.subscribe(
+      (data) => this.userData = data
+    );
+  }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    return this.authService.isAuthenticated();
+    const isAuthenticated = this.authService.isAuthenticated();
+
+
+    if(!isAuthenticated){
+      this.router.navigate(['/login']);
+      return false;
+    }
+
+    if(this.userData != null){
+      const userRoles: string[] = this.userData['roles'];
+      const routeRole: string = next.data['role'];
+
+      if(routeRole != null){
+        if(userRoles.includes(routeRole)){
+          return true;
+        }
+        return false;
+      }
+    }
+
+    return true;
   }
 
   canActivateChild(
@@ -30,6 +57,13 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
   canLoad(route: Route): boolean {
-    return this.authService.isAuthenticated();
+    const isAuthenticated = this.authService.isAuthenticated();
+
+    if(!isAuthenticated){
+      this.router.navigate(['/login']);
+      return false;
+    }
+
+    return true;
   }
 }

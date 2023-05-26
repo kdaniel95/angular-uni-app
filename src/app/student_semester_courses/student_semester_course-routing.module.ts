@@ -4,6 +4,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { StudentSemesterCourseComponent } from './student_semester_course/student_semester_course.component';
 import { StudentSemesterCoursesListComponent } from './student_semester_courses-list/student_semester_courses-list.component';
 import { StudentSemesterCoursesCreateComponent } from './student-semester-courses-create/student-semester-courses-create.component';
+import { Role } from '../data/role.enum';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
   {
     path: 'create',
     canActivateChild: [AuthGuard],
+    data: {role: Role.Admin},
     children: [
       {
         path: '',
@@ -29,7 +31,7 @@ const routes: Routes = [
   {
     path: ':studentId/:semesterId',
     component: StudentSemesterCoursesListComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   { path: '**', component: StudentSemesterCourseComponent },
 ];
